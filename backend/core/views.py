@@ -4,7 +4,7 @@ from .serializers import ContactSerializer
 from rest_framework.parsers import JSONParser
 from rest_framework import views, status
 from rest_framework.response import Response
-from .models import Contact
+
 
 
 
@@ -24,11 +24,6 @@ class ContactAPIView(views.APIView):
     def get_serializer(self, *args, **kwargs):
         kwargs['context'] = self.get_serializer_context()
         return self.serializer_class(*args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        contacts = Contact.objects.all()
-        serializer = ContactSerializer(contacts, many=True)
-        return Response(serializer.data)
 
     def post(self, request):
         try:
